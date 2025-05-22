@@ -7,7 +7,7 @@
           <div class="d-flex justify-center mb-4">
             <!-- <VNodeRenderer :nodes="themeConfig.app.logo" /> -->
             <!-- OR use <img> if you have a static image like: -->
-            <img src="@/assets/images/POB_Circle_Logo.png" alt="Logo" height="200" width="200" />
+            <img src="@/assets/images/Quotation Hub.png" alt="Logo" height="200" width="200" />
           </div>
           <!-- Title and subtitle -->
           <h4 class="text-h4 font-weight-bold mb-1">
@@ -54,6 +54,11 @@
               <VCol cols="12">
                 <RouterLink to="/bookDemo" class="text-decoration-none">
                   <VBtn block variant="outlined" size="large">Book a Demo</VBtn>
+                </RouterLink>
+              </VCol>
+              <VCol cols="12">
+                <RouterLink to="/register" class="text-decoration-none">
+                  <VBtn block variant="outlined" size="large">Register</VBtn>
                 </RouterLink>
               </VCol>
             </VRow>

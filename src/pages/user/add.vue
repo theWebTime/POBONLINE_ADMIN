@@ -11,40 +11,50 @@
       <VForm ref="formSubmit">
         <VCardText>
           <VRow>
-            <VCol cols="12" md="6">
+            <VCol cols="12" md="3">
               <label>Logo Image</label>
               <v-file-input accept="image/*" v-model="image" :rules="[globalRequire].flat()" ref="file"></v-file-input>
             </VCol>
-            <VCol cols="12" md="6">
+            <VCol cols="12" md="3">
               <AppTextField :rules="[globalRequire, nameMin, nameMax].flat()" v-model="insertData.name" label="Name" />
             </VCol>
-            <VCol cols="12" md="4">
+            <VCol cols="12" md="3">
               <AppTextField v-model="insertData.phone_number" :rules="[globalRequire, numberMin, numberMax].flat()"
                 type="number" label="Phone Number" />
             </VCol>
-            <VCol cols="12" md="6">
+            <VCol cols="12" md="3">
               <AppTextField :rules="[globalRequire, nameMin, nameMax].flat()" v-model="insertData.studio_name"
                 label="Studio Name" />
             </VCol>
-            <VCol cols="12" md="6">
+            <VCol cols="12" md="3">
               <v-textarea v-model="insertData.address" :rules="[globalRequire].flat()" label="Street Address" />
             </VCol>
-            <VCol cols="12" md="4">
+            <VCol cols="12" md="3">
               <AppTextField v-model="insertData.email" :rules="[email, globalRequire].flat()" label="Email" />
             </VCol>
-            <VCol cols="12" md="4">
+            <VCol cols="12" md="3">
               <AppTextField type="password" :rules="[passwordMin].flat()" v-model="insertData.password"
                 label="Password" />
             </VCol>
-            <VCol cols="12" md="6">
-                <AppTextField
-                  v-model="insertData.instagram_link"
-                  label="Instagram Link"
-                />
-              </VCol>
-            <VCol cols="12" md="4">
+            <VCol cols="12" md="3">
+              <AppTextField type="password" :rules="[passwordMin].flat()" v-model="insertData.c_password"
+                label="Confirm Password" />
+            </VCol>
+            <VCol cols="12" md="3">
               <AppTextField v-model="insertData.subscription_date" :rules="[globalRequire].flat()" type="date"
                 label="date" />
+            </VCol>
+            <VCol cols="12" md="3">
+              <AppTextField v-model="insertData.instagram_link" label="Instagram Link" />
+            </VCol>
+            <VCol cols="12" sm="6" md="3">
+              <AppTextField v-model="insertData.facebook_link" label="Facebook Link" />
+            </VCol>
+            <VCol cols="12" sm="6" md="3">
+              <AppTextField v-model="insertData.youtube_link" label="YouTube Link" />
+            </VCol>
+            <VCol cols="12" sm="6" md="3">
+              <AppTextField v-model="insertData.website_link" label="Website Link" />
             </VCol>
           </VRow>
         </VCardText>
@@ -126,8 +136,12 @@ export default {
         address: "",
         email: "",
         password: "",
-        instagram_link: "",
+        c_password: "",
         subscription_date: "",
+        instagram_link: "",
+        facebook_link: "",
+        youtube_link: "",
+        website_link: "",
       },
       loader: false,
       errors: {},

@@ -59,7 +59,7 @@ if (auth.role == 2) {
   const manageCategory = {
     title: "Category",
     to: null,
-    icon: { icon: "tabler-user" },
+    icon: { icon: "tabler-category" },
     children: [
       {
         title: "Add",
@@ -77,7 +77,7 @@ if (auth.role == 2) {
   const manageStaff = {
     title: "Team",
     to: null,
-    icon: { icon: "tabler-user" },
+    icon: { icon: "tabler-users-group" },
     children: [
       {
         title: "Add",
@@ -95,7 +95,7 @@ if (auth.role == 2) {
   const manageParticularFunction = {
     title: "Particular Function",
     to: null,
-    icon: { icon: "tabler-user" },
+    icon: { icon: "tabler-circle-dotted-letter-f" },
     children: [
       {
         title: "Add",
@@ -113,7 +113,7 @@ if (auth.role == 2) {
   const manageComplimentService = {
     title: "Compliment Service",
     to: null,
-    icon: { icon: "tabler-user" },
+    icon: { icon: "tabler-list-details" },
     children: [
       {
         title: "Add",
@@ -149,7 +149,7 @@ if (auth.role == 2) {
   const manageExternalService = {
     title: "External Service",
     to: null,
-    icon: { icon: "tabler-user" },
+    icon: { icon: "tabler-list-numbers" },
     children: [
       {
         title: "Add",
@@ -167,21 +167,21 @@ if (auth.role == 2) {
   const manageYourStory = {
     title: "Your Story",
     to: { name: "yourStory" },
-    icon: { icon: "tabler-settings" },
+    icon: { icon: "tabler-photo" },
   };
   route.push(manageYourStory);
 
   const manageOrganizeStaff = {
     title: "Organize Staff",
     to: { name: "organizeStaff" },
-    icon: { icon: "tabler-settings" },
+    icon: { icon: "tabler-align-box-center-stretch" },
   };
   route.push(manageOrganizeStaff);
 
   const managePrivacyPolicy = {
     title: "Privacy Policy",
     to: { name: "privacyPolicy" },
-    icon: { icon: "tabler-settings" },
+    icon: { icon: "tabler-file-description" },
   };
   route.push(managePrivacyPolicy);
 } 

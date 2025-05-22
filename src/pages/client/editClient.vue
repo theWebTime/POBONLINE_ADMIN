@@ -66,8 +66,7 @@
                             </VCol>
 
                             <VCol cols="12" md="3">
-                                <VTextField v-model="func.function_time" type="time" label="Function Time"
-                                    :rules="[globalRequire].flat()" />
+                                <VTextField v-model="func.function_time" type="time" label="Function Time" />
                             </VCol>
 
                             <VCol cols="12" md="3">
@@ -83,7 +82,7 @@
 
 
                             <VCol cols="12" md="12">
-                                <VTextarea v-model="func.venue" label="Venue" :rules="[globalRequire].flat()" />
+                                <VTextarea v-model="func.venue" label="Venue" />
                             </VCol>
                         </VRow>
 

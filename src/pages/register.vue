@@ -5,7 +5,7 @@
       <VCardText class="text-center mb-6">
         <div class="d-flex justify-center mb-4">
           <!-- Replace with your logo path or use themeConfig -->
-          <img src="@/assets/images/POB_Circle_Logo.png" alt="Logo" height="200" width="200" />
+          <img src="@/assets/images/Quotation Hub.png" alt="Logo" height="200" width="200" />
         </div>
         <h2 class="text-h5 font-weight-bold text-primary mb-1">Register Your Studio</h2>
         <p class="text-subtitle-2 text-grey-darken-1">Fill the form below to create an account</p>
@@ -63,7 +63,10 @@
               <AppTextField v-model="insertData.password" label="Password" type="password"
                 :rules="[passwordMin].flat()" />
             </VCol>
-
+            <VCol cols="12" sm="6" md="4">
+              <AppTextField type="password" :rules="[passwordMin].flat()" v-model="insertData.c_password"
+                label="Confirm Password" />
+            </VCol>
             <!-- Subscription Date -->
             <VCol cols="12" sm="6" md="4">
               <AppTextField v-model="insertData.subscription_date" label="Subscription Date" type="date"
@@ -87,7 +90,7 @@
 
           <!-- Buttons -->
           <VCardActions class="d-flex justify-end flex-wrap gap-4 mt-6">
-            <VBtn color="primary" @click="saveData" size="large" rounded> Save </VBtn>
+            <VBtn color="primary" @click="saveData" size="large" rounded> Register </VBtn>
             <VBtn to="/" color="secondary" size="large" variant="outlined" rounded> Login </VBtn>
           </VCardActions>
         </VCardText>
@@ -170,6 +173,7 @@ export default {
         address: "",
         email: "",
         password: "",
+        c_password: "",
         subscription_date: "",
         instagram_link: "",
         facebook_link: "",
