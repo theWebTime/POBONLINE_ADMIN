@@ -29,10 +29,10 @@
         <VCardText>
           <VForm ref="formSubmit">
             <VRow>
-              <!-- Email with icon -->
+              <!-- Phone Number with icon -->
               <VCol cols="12">
-                <AppTextField v-model="loginObject.email" label="Email" type="email" prepend-inner-icon="tabler-mail"
-                  :rules="[globalRequire, email].flat()" autofocus density="comfortable" />
+                <AppTextField v-model="loginObject.phone_number" label="Phone Number" type="number"
+                  prepend-inner-icon="tabler-phone" :rules="[globalRequire].flat()" autofocus density="comfortable" />
               </VCol>
 
               <!-- Password with visibility toggle icon -->
@@ -64,6 +64,15 @@
                 </RouterLink>
               </VCol>
             </VRow>
+            <VCol cols="12" class="text-center mt-4">
+              <a href="https://wa.me/919662961868?text=Hello%20Quotation%20Hub%20Support" target="_blank"
+                class="text-decoration-none">
+                <VBtn icon size="large" color="success" variant="text">
+                  <VIcon size="32">mdi-whatsapp</VIcon>
+                </VBtn>
+                <div class="text-body-2 mt-1">Chat with Support</div>
+              </a>
+            </VCol>
           </VForm>
         </VCardText>
       </VCard>
@@ -114,7 +123,7 @@ export default {
           "Email must be valid",
       ],
       loginObject: {
-        email: "",
+        phone_number: "",
         password: "",
       },
       isSubmit: false,

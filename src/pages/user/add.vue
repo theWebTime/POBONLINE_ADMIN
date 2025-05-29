@@ -49,10 +49,11 @@
               <AppTextField type="password" :rules="[passwordMin].flat()" v-model="insertData.c_password"
                 label="Confirm Password" />
             </VCol>
-            <VCol cols="12" md="3">
-              <AppTextField v-model="insertData.subscription_date" :rules="[globalRequire].flat()" type="date"
-                label="date" />
+            <VCol cols="12" sm="6" md="3">
+              <AppTextField v-model="insertData.subscription_date" label="Subscription Date" type="date"
+                :rules="[globalRequire, futureOrTodayDate].flat()" :min="todayDate" />
             </VCol>
+
             <VCol cols="12" md="3">
               <AppTextField v-model="insertData.instagram_link" label="Instagram Link" />
             </VCol>
@@ -94,7 +95,16 @@ export default {
     // DatetimePicker,
   },
   data() {
+    const today = new Date()
+    const formattedToday = today.toISOString().split('T')[0] // yyyy-mm-dd
     return {
+      todayDate: formattedToday,
+      futureOrTodayDate: [
+        value => {
+          if (!value) return true
+          return value >= formattedToday || 'Date cannot be in the past.'
+        },
+      ],
       globalRequire: [
         (value) => {
           if (value) return true;
