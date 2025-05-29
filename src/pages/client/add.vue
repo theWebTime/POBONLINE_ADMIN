@@ -5,11 +5,11 @@
         <VCard title="Add Client Details">
             <VAlert v-if="isAlertVisible" v-model="isAlertVisible" closable close-label="Close Alert" color="error"
                 class="mb-4">
-                <ul>
-                    <li v-for="(value, key) in errors" :key="key">
-                        <span v-for="(msg, index) in value" :key="index">→ {{ msg }}</span>
-                    </li>
-                </ul>
+                <div class="d-flex flex-wrap" style="gap: 8px;">
+                    <span v-for="(msg, index) in errors" :key="index" class="error-chip">
+                        • {{ msg }}
+                    </span>
+                </div>
             </VAlert>
 
             <VForm ref="formSubmit">

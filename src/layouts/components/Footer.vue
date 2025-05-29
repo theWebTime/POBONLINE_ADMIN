@@ -3,9 +3,8 @@
     <!-- 👉 Footer: left content -->
     <span class="d-flex align-center">
       &copy;
-      {{ new Date().getFullYear() }} {{ "Quotation" }}&nbsp;&nbsp;
-      <a href="https://thewebtime.in/" target="_blank">{{ "Developed By The Web Time It Solution" }}
-      </a>
+      {{ new Date().getFullYear() }} {{ "Quotation Hub" }}&nbsp;&nbsp;
+      <!-- <a href="https://thewebtime.in/" target="_blank">{{ "Developed By The Web Time It Solution" }}</a> -->
     </span>
     <!-- 👉 Footer: right content -->
     <!-- <span class="d-md-flex gap-x-4 text-primary d-none">

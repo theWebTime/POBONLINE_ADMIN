@@ -3,49 +3,69 @@
     <GlobalBreadCrumbsVue></GlobalBreadCrumbsVue>
 
     <VCard title="Update User Details">
-      <VAlert v-model="isAlertVisible" closable close-label="Close Alert" color="error">
-        <ul v-for="(value, key) in errors" :key="key">
-          <li v-for="(value1, key1) in value" :key="key1">-> {{ value1 }}</li>
-        </ul>
-        {{ value }}
+
+      <VAlert v-if="isAlertVisible" v-model="isAlertVisible" closable close-label="Close Alert" color="error"
+        class="mb-4">
+        <div class="d-flex flex-wrap" style="gap: 8px;">
+          <span v-for="(msg, index) in errors" :key="index" class="error-chip">
+            • {{ msg }}
+          </span>
+        </div>
       </VAlert>
       <VForm ref="formSubmit">
         <VCardText>
           <VRow>
-            <VCol cols="12" md="6">
+            <VCol cols="12" md="3">
               <label>Logo Image</label>
               <v-file-input accept="image/*" v-model="image" ref="file"></v-file-input>
             </VCol>
-            <VCol cols="12" md="6">
+            <VCol cols="12" md="3">
               <VAvatar size="48">
                 <VImg :src="`${baseUrl}/images/user/${fetch_photo}`" class="rounded-square" cover />
               </VAvatar>
             </VCol>
-            <VCol cols="12" md="6">
+            <VCol cols="12" md="3">
               <AppTextField :rules="[globalRequire, nameMin, nameMax].flat()" v-model="insertData.name" label="Name" />
             </VCol>
-            <VCol cols="12" md="4">
+            <VCol cols="12" md="3">
               <AppTextField v-model="insertData.phone_number" :rules="[globalRequire, numberMin, numberMax].flat()"
                 type="number" label="Phone Number" />
             </VCol>
-            <VCol cols="12" md="6">
+            <VCol cols="12" md="3">
               <AppTextField :rules="[globalRequire, nameMin, nameMax].flat()" v-model="insertData.studio_name"
                 label="Studio Name" />
             </VCol>
-            <VCol cols="12" md="6">
+            <VCol cols="12" md="3">
               <v-textarea v-model="insertData.address" :rules="[globalRequire].flat()" label="Street Address" />
             </VCol>
-            <VCol cols="12" md="4">
+            <VCol cols="12" md="3">
               <AppTextField v-model="insertData.email" :rules="[email, globalRequire].flat()" label="Email" />
             </VCol>
-            <VCol cols="12" md="6">
+            <VCol cols="3">
+              <AppTextField type="password" v-model="insertData.password"
+                label="Password (make it empty if you don't want to update)" />
+            </VCol>
+            <VCol cols="12" md="3">
               <AppTextField v-model="insertData.instagram_link" label="Instagram Link" />
             </VCol>
-            <VCol cols="12" md="4">
-              <AppTextField v-model="insertData.subscription_date" :rules="[globalRequire].flat()" type="date"
-                label="date" />
+            <VCol cols="12" md="3">
+              <AppTextField v-model="insertData.facebook_link" label="Facebook Link" />
             </VCol>
-            <VCol cols="12" md="4">
+            <VCol cols="12" md="3">
+              <AppTextField v-model="insertData.youtube_link" label="Youtube Channel Link" />
+            </VCol>
+            <VCol cols="12" md="3">
+              <AppTextField v-model="insertData.website_link" label="Website Link" />
+            </VCol>
+            <VCol cols="12" md="3">
+              <AppTextField v-model="insertData.subscription_date" :rules="[globalRequire].flat()" type="date"
+                label="Subscription Start Date" />
+            </VCol>
+            <VCol cols="12" md="3">
+              <AppTextField v-model="insertData.subscription_end_date" :rules="[globalRequire].flat()" type="date"
+                label="Subscription End Date" />
+            </VCol>
+            <VCol cols="12" md="3">
               <VRadioGroup v-model="insertData.status" inline label="Status">
                 <VRadio label="Active" :value="1" density="compact" />
                 <VRadio label="In-Active" :value="0" density="compact" />
@@ -107,6 +127,12 @@ export default {
           /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
           "Email must be valid",
       ],
+      passwordMin: [
+        (value) => {
+          if (value?.length > 6) return true;
+          return "Must be at least 6 characters.";
+        },
+      ],
       image: "",
       fetch_photo: "",
       insertData: {
@@ -117,7 +143,11 @@ export default {
         email: "",
         password: "",
         instagram_link: "",
+        facebook_link: "",
+        youtube_link: "",
+        website_link: "",
         subscription_date: "",
+        subscription_end_date: "",
         status: "",
       },
       loader: false,
@@ -130,6 +160,9 @@ export default {
     this.fetchData();
   },
   methods: {
+    resetValues() {
+      this.insertData.password = "";
+    },
     async fetchData() {
       this.loader = true;
       await http
@@ -143,8 +176,13 @@ export default {
             this.insertData.address = resData.address;
             this.insertData.email = resData.email;
             this.insertData.instagram_link = resData.instagram_link;
+            this.insertData.facebook_link = resData.facebook_link;
+            this.insertData.youtube_link = resData.youtube_link;
+            this.insertData.website_link = resData.website_link;
+            this.insertData.studio_name = resData.studio_name;
             this.insertData.status = resData.status;
             this.insertData.subscription_date = resData.subscription_date;
+            this.insertData.subscription_end_date = resData.subscription_end_date;
             this.fetch_photo = resData.image == null ? "" : resData.image;
           }
         })
@@ -172,6 +210,8 @@ export default {
           .then((res) => {
             if (res.data.success) {
               this.$toast.success(res.data.message);
+              this.resetValues();
+              this.fetchData();
               this.$router.push({
                 path: "/user/list/",
               });

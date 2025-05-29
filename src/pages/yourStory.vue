@@ -4,11 +4,13 @@
     <br />
     <VDivider />
     <VCard>
-      <VAlert v-model="isAlertVisible" closable close-label="Close Alert" color="error">
-        <ul v-for="(value, key) in errors" :key="key">
-          <li v-for="(value1, key1) in value" :key="key1">-> {{ value1 }}</li>
-        </ul>
-        {{ value }}
+      <VAlert v-if="isAlertVisible" v-model="isAlertVisible" closable close-label="Close Alert" color="error"
+        class="mb-4">
+        <div class="d-flex flex-wrap" style="gap: 8px;">
+          <span v-for="(msg, index) in errors" :key="index" class="error-chip">
+            • {{ msg }}
+          </span>
+        </div>
       </VAlert>
       <VForm ref="formSubmit">
         <VCardText>
@@ -22,6 +24,7 @@
               <VResponsive :aspect-ratio="1">
                 <VImg :src="`${baseUrl}/images/yourStory/${fetch_photo}`" class="rounded-square" cover />
               </VResponsive>
+              <VBtn class="mt-2" color="error" @click="openDeletePopup('image')">Delete Image 1</VBtn>
             </VCol>
             <VCol cols="12" md="6">
               <v-file-input accept="image/*" v-model="image2" label="Your Story Image 2" ref="file1"></v-file-input>
@@ -30,6 +33,7 @@
               <VResponsive :aspect-ratio="1">
                 <VImg :src="`${baseUrl}/images/yourStory/${fetch_photo2}`" class="rounded-square" cover />
               </VResponsive>
+              <VBtn class="mt-2" color="error" @click="openDeletePopup('image2')">Delete Image 2</VBtn>
             </VCol>
           </VRow>
         </VCardText>
@@ -48,14 +52,14 @@
       </VCard>
     </VDialog>
     <VDialog v-model="isDeleteDialogVisible" width="500">
-        <!-- Dialog close btn -->
-        <DialogCloseBtn @click="closeDeletePopup()" />
-        <!-- Dialog Content -->
-        <VCard title="Are you Sure to delete?">
-            <VCardText class="d-flex justify-end">
-                <VBtn @click="deleteData()"> Yes </VBtn>
-            </VCardText>
-        </VCard>
+      <!-- Dialog close btn -->
+      <DialogCloseBtn @click="closeDeletePopup()" />
+      <!-- Dialog Content -->
+      <VCard title="Are you Sure to delete?">
+        <VCardText class="d-flex justify-end">
+          <VBtn @click="deleteData()"> Yes </VBtn>
+        </VCardText>
+      </VCard>
     </VDialog>
   </div>
 </template>
@@ -69,6 +73,7 @@ export default {
   },
   data() {
     return {
+      deleteColumn: "",
       baseUrl: import.meta.env.VITE_APP_BASE_URL,
       globalRequire: [
         (value) => {
@@ -97,15 +102,6 @@ export default {
     this.fetchData();
   },
   methods: {
-    openDeletePopup(val) {
-            this.editableId = val;
-            this.isDeleteDialogVisible = true;
-        },
-
-        closeDeletePopup() {
-            this.editableId = "";
-            this.isDeleteDialogVisible = false;
-        },
     fetchData() {
       this.loader = true;
       http
@@ -158,24 +154,31 @@ export default {
           });
       }
     },
+    openDeletePopup(column) {
+      this.deleteColumn = column;
+      this.isDeleteDialogVisible = true;
+    },
+    closeDeletePopup() {
+      this.deleteColumn = "";
+      this.isDeleteDialogVisible = false;
+    },
     deleteData() {
-            http
-                .post("/attachment/delete/" + this.editableId, {})
-                .then((res) => {
-                    if (res.data.success) {
-                        this.fetchData();
-                        this.$toast.success(res.data.message);
-                    } else {
-                        this.$toast.error(res.data.message);
-                    }
-                    this.editableId = "";
-                    this.isDeleteDialogVisible = false;
-                })
-                .catch((e) => {
-                    console.log(e);
-                    this.isDeleteDialogVisible = false;
-                });
-        },
+      http
+        .post("/your-story/delete", { column: this.deleteColumn })
+        .then((res) => {
+          if (res.data.success) {
+            this.fetchData();
+            this.$toast.success(res.data.message);
+          } else {
+            this.$toast.error(res.data.message);
+          }
+          this.closeDeletePopup();
+        })
+        .catch((e) => {
+          console.error(e);
+          this.closeDeletePopup();
+        });
+    },
   },
 };
 </script>

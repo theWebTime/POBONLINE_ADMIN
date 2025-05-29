@@ -5,7 +5,7 @@
       <VCardText class="text-center mb-6">
         <div class="d-flex justify-center mb-4">
           <!-- Replace with your logo path or use themeConfig -->
-          <img src="@/assets/images/Quotation Hub.png" alt="Logo" height="200" width="200" />
+          <img src="@/assets/images/Quotation_Hub.png" alt="Logo" height="200" width="200" />
         </div>
         <h2 class="text-h5 font-weight-bold text-primary mb-1">Register Your Studio</h2>
         <p class="text-subtitle-2 text-grey-darken-1">Fill the form below to create an account</p>

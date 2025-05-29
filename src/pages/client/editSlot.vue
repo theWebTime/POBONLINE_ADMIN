@@ -1,9 +1,12 @@
 <template>
     <VCard title="Manage Slot Details">
-        <VAlert v-model="isAlertVisible" closable close-label="Close Alert" color="error">
-            <ul v-for="(value, key) in errors" :key="key">
-                <li v-for="(value1, key1) in value" :key="key1">-> {{ value1 }}</li>
-            </ul>
+        <VAlert v-if="isAlertVisible" v-model="isAlertVisible" closable close-label="Close Alert" color="error"
+            class="mb-4">
+            <div class="d-flex flex-wrap" style="gap: 8px;">
+                <span v-for="(msg, index) in errors" :key="index" class="error-chip">
+                    • {{ msg }}
+                </span>
+            </div>
         </VAlert>
         <VForm ref="formSubmit">
             <VCardText>
@@ -182,72 +185,72 @@ export default {
         },
 
         downloadPDF() {
-    this.isLoading = true;
-    const clientId = this.paramsId;
+            this.isLoading = true;
+            const clientId = this.paramsId;
 
-    http.get(`/clients/download-receipt/${clientId}`, { 
-        responseType: 'blob' 
-    })
-    .then(response => {
-        const blob = new Blob([response.data], { type: 'application/pdf' });
-        const link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.download = `receipt_${clientId}_${new Date().getTime()}.pdf`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(link.href);
-    })
-    .catch(error => {
-        console.error('Error downloading receipt:', error);
-        this.$toast.error('Failed to download receipt');
-    })
-    .finally(() => {
-        this.isLoading = false;
-    });
-},
+            http.get(`/clients/download-receipt/${clientId}`, {
+                responseType: 'blob'
+            })
+                .then(response => {
+                    const blob = new Blob([response.data], { type: 'application/pdf' });
+                    const link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = `receipt_${clientId}_${new Date().getTime()}.pdf`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(link.href);
+                })
+                .catch(error => {
+                    console.error('Error downloading receipt:', error);
+                    this.$toast.error('Failed to download receipt');
+                })
+                .finally(() => {
+                    this.isLoading = false;
+                });
+        },
 
-sendReceiptToWhatsapp(clientId) {
-    this.isLoading = true;
+        sendReceiptToWhatsapp(clientId) {
+            this.isLoading = true;
 
-    // Find client data (alternative approach)
-    const client = this.rows.find(row => row.client_id === clientId) || 
-                  this.clientData || 
-                  { client: {} };
+            // Find client data (alternative approach)
+            const client = this.rows.find(row => row.client_id === clientId) ||
+                this.clientData ||
+                { client: {} };
 
-    if (!client.client || !client.client.phone_number) {
-        this.$toast.error('Client phone number is required');
-        this.isLoading = false;
-        return;
-    }
+            if (!client.client || !client.client.phone_number) {
+                this.$toast.error('Client phone number is required');
+                this.isLoading = false;
+                return;
+            }
 
-    let phoneNumber = client.client.phone_number.replace(/\D/g, '');
-    if (phoneNumber.length === 10) {
-        phoneNumber = '91' + phoneNumber;
-    }
+            let phoneNumber = client.client.phone_number.replace(/\D/g, '');
+            if (phoneNumber.length === 10) {
+                phoneNumber = '91' + phoneNumber;
+            }
 
-    http.get(`/clients/generate-receipt/${clientId}`)
-    .then((res) => {
-        if (res.data.success) {
-            const receiptUrl = res.data.url;
-            const clientName = client.client.name || 'there';
-            
-            const message = `Hello ${clientName}, here is your receipt: ${receiptUrl}`;
-            const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-            
-            window.open(whatsappLink, '_blank');
-        } else {
-            this.$toast.error(res.data.message || 'Failed to generate receipt.');
+            http.get(`/clients/generate-receipt/${clientId}`)
+                .then((res) => {
+                    if (res.data.success) {
+                        const receiptUrl = res.data.url;
+                        const clientName = client.client.name || 'there';
+
+                        const message = `Hello ${clientName}, here is your receipt: ${receiptUrl}`;
+                        const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+                        window.open(whatsappLink, '_blank');
+                    } else {
+                        this.$toast.error(res.data.message || 'Failed to generate receipt.');
+                    }
+                })
+                .catch((e) => {
+                    console.error(e);
+                    this.$toast.error('Failed to generate receipt URL');
+                })
+                .finally(() => {
+                    this.isLoading = false;
+                });
         }
-    })
-    .catch((e) => {
-        console.error(e);
-        this.$toast.error('Failed to generate receipt URL');
-    })
-    .finally(() => {
-        this.isLoading = false;
-    });
-}
 
         /* downloadPDF() {
             this.isLoading = true;

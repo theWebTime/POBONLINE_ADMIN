@@ -59,7 +59,7 @@
                 {{ item.subscription_date }}
               </td>
               <td class="text-center">
-                {{ item.subscription_expiry_date }}
+                {{ item.subscription_end_date }}
               </td>
               <td class="text-center">
                 <router-link :to="'/user/editUser/' + item.id">

@@ -4,7 +4,7 @@
             <div class="d-flex justify-center mb-4">
                 <!-- <VNodeRenderer :nodes="themeConfig.app.logo" /> -->
                 <!-- OR use <img> if you have a static image like: -->
-                <img src="@/assets/images/Quotation Hub.png" alt="Logo" height="200" width="200" />
+                <img src="@/assets/images/Quotation_Hub.png" alt="Logo" height="200" width="200" />
             </div>
             <VCardTitle class="text-h5 font-weight-bold text-primary mb-6 text-center">
                 Book a Demo
