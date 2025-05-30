@@ -1,159 +1,162 @@
 <template>
-    <VAlert v-if="isAlertVisible" v-model="isAlertVisible" closable close-label="Close Alert" color="error"
-        class="mb-4">
-        <div class="d-flex flex-wrap" style="gap: 8px;">
-            <span v-for="(msg, index) in errors" :key="index" class="error-chip">
-                • {{ msg }}
-            </span>
-        </div>
-    </VAlert>
-    <VForm ref="formSubmit">
-        <VCardText>
-            <VRow>
-                <!-- Basic Info -->
-                <VCol cols="12" md="4">
-                    <AppTextField v-model="insertData.name" :rules="[globalRequire, nameMin, nameMax].flat()"
-                        label="Client Name" />
-                </VCol>
+    <div>
+        <VAlert v-if="isAlertVisible" v-model="isAlertVisible" closable close-label="Close Alert" color="error"
+            class="mb-4">
+            <div class="d-flex flex-wrap" style="gap: 8px;">
+                <span v-for="(msg, index) in errors" :key="index" class="error-chip">
+                    • {{ msg }}
+                </span>
+            </div>
+        </VAlert>
+        <VForm ref="formSubmit">
+            <VCardText>
+                <VRow>
+                    <!-- Basic Info -->
+                    <VCol cols="12" md="4">
+                        <AppTextField v-model="insertData.name" :rules="[globalRequire, nameMin, nameMax].flat()"
+                            label="Client Name" />
+                    </VCol>
 
-                <VCol cols="12" md="4">
-                    <AppTextField v-model="insertData.phone_number"
-                        :rules="[globalRequire, numberMin, numberMax].flat()" type="number" label="Phone Number" />
-                </VCol>
+                    <VCol cols="12" md="4">
+                        <AppTextField v-model="insertData.phone_number"
+                            :rules="[globalRequire, numberMin, numberMax].flat()" type="number" label="Phone Number" />
+                    </VCol>
 
-                <VCol cols="12" md="4">
-                    <VTextarea v-model="insertData.address" :rules="[globalRequire, nameMin, nameMax].flat()"
-                        label="Address" />
-                </VCol>
+                    <VCol cols="12" md="4">
+                        <VTextarea v-model="insertData.address" :rules="[globalRequire, nameMin, nameMax].flat()"
+                            label="Address" />
+                    </VCol>
 
-                <VCol cols="12" md="2">
-                    <AppTextField v-model="insertData.starting_date" :rules="[globalRequire].flat()" type="date"
-                        label="Starting Date" />
-                </VCol>
+                    <VCol cols="12" md="2">
+                        <AppTextField v-model="insertData.starting_date" :rules="[globalRequire].flat()" type="date"
+                            label="Starting Date" />
+                    </VCol>
 
-                <!-- Dropdowns -->
-                <VCol cols="12" md="2">
-                    <AppSelect v-model="insertData.particular_function_id" :items="data_fetch_particular_function"
-                        :rules="[globalRequire].flat()" item-title="name" item-value="id"
-                        label="Select Particular Function" />
-                </VCol>
+                    <!-- Dropdowns -->
+                    <VCol cols="12" md="2">
+                        <AppSelect v-model="insertData.particular_function_id" :items="data_fetch_particular_function"
+                            :rules="[globalRequire].flat()" item-title="name" item-value="id"
+                            label="Select Particular Function" />
+                    </VCol>
 
-                <VCol cols="12" md="4">
-                    <AppSelect v-model="insertData.compliment_service_ids" :items="data_fetch_compliment_service"
-                        :rules="[globalRequire].flat()" item-title="name" item-value="id"
-                        label="Select Compliment Services" multiple chips />
-                </VCol>
+                    <VCol cols="12" md="4">
+                        <AppSelect v-model="insertData.compliment_service_ids" :items="data_fetch_compliment_service"
+                            :rules="[globalRequire].flat()" item-title="name" item-value="id"
+                            label="Select Compliment Services" multiple chips />
+                    </VCol>
 
-                <VCol cols="12" md="2">
-                    <AppTextField v-model="insertData.discount_percentage" label="Discount Percentage" suffix="%" />
-                </VCol>
+                    <VCol cols="12" md="2">
+                        <AppTextField v-model="insertData.discount_percentage" label="Discount Percentage" suffix="%" />
+                    </VCol>
 
-                <VCol cols="12" md="2">
-                    <VRadioGroup v-model="insertData.is_booked" inline label="Client Booked">
-                        <VRadio label="Yes" :value="1" density="compact" />
-                        <VRadio label="No" :value="0" density="compact" />
-                    </VRadioGroup>
-                </VCol>
+                    <VCol cols="12" md="2">
+                        <VRadioGroup v-model="insertData.is_booked" inline label="Client Booked">
+                            <VRadio label="Yes" :value="1" density="compact" />
+                            <VRadio label="No" :value="0" density="compact" />
+                        </VRadioGroup>
+                    </VCol>
 
-                <!-- Client Functions -->
-                <VCol cols="12">
-                    <h3 class="text-lg font-semibold mb-3">Client Functions</h3>
+                    <!-- Client Functions -->
+                    <VCol cols="12">
+                        <h3 class="text-lg font-semibold mb-3">Client Functions</h3>
 
-                    <div v-for="(func, funcIndex) in insertData.parts" :key="func.id || `new-${funcIndex}`"
-                        class="pa-4 mb-6 border rounded">
-                        <VRow dense>
-                            <VCol cols="12" md="3">
-                                <VTextField v-model="func.date" type="date" label="Function Date"
-                                    :rules="[globalRequire].flat()" required />
-                            </VCol>
+                        <div v-for="(func, funcIndex) in insertData.parts" :key="func.id || `new-${funcIndex}`"
+                            class="pa-4 mb-6 border rounded">
+                            <VRow dense>
+                                <VCol cols="12" md="3">
+                                    <VTextField v-model="func.date" type="date" label="Function Date"
+                                        :rules="[globalRequire].flat()" required />
+                                </VCol>
 
-                            <VCol cols="12" md="3">
-                                <VTextField v-model="func.function_time" type="time" label="Function Time" />
-                            </VCol>
+                                <VCol cols="12" md="3">
+                                    <VTextField v-model="func.function_time" type="time" label="Function Time" />
+                                </VCol>
 
-                            <VCol cols="12" md="3">
-                                <VTextField v-model="func.day_label" label="Day Label" :rules="[globalRequire].flat()"
-                                    required />
-                            </VCol>
-                            <VCol cols="12" md="3">
-                                <VTextField v-model="func.function_name" label="Function Name"
-                                    :rules="[globalRequire].flat()" required />
-                            </VCol>
-                        </VRow>
-                        <VRow>
-
-
-                            <VCol cols="12" md="12">
-                                <VTextarea v-model="func.venue" label="Venue" />
-                            </VCol>
-                        </VRow>
-
-                        <!-- Categories per Function -->
-                        <div class="ml-2 mt-4">
-                            <h4 class="font-medium mb-2">Categories</h4>
-
-                            <div v-for="(cat, catIndex) in func.categories" :key="cat.id || `new-${catIndex}`"
-                                class="d-flex flex-wrap align-center gap-3 mb-3">
-                                <VSelect v-model="cat.category_management_id" :items="data_fetch_categories"
-                                    item-title="category_role" item-value="id" label="Category"
-                                    class="flex-grow-1 min-w-200" :rules="[globalRequire].flat()"
-                                    @update:modelValue="onCategoryChange($event, funcIndex, catIndex, func.id)" />
-
-                                <VTextField v-model="cat.category_quantity" type="number" label="Quantity"
-                                    class="flex-shrink-0" style="width: 120px;" :rules="[globalRequire].flat()" min="1"
-                                    @input="limitStaffSelection(funcIndex, catIndex)" />
-
-                                <VSelect v-model="cat.selected_staff_ids" :items="cat.available_staff || []"
-                                    item-title="name" item-value="id" label="Select Staff" class="flex-grow-1" multiple
-                                    chips :rules="[globalRequire].flat()" :menu-props="{ maxHeight: '300px' }"
-                                    @update:model-value="() => limitStaffSelection(funcIndex, catIndex)" />
+                                <VCol cols="12" md="3">
+                                    <VTextField v-model="func.day_label" label="Day Label"
+                                        :rules="[globalRequire].flat()" required />
+                                </VCol>
+                                <VCol cols="12" md="3">
+                                    <VTextField v-model="func.function_name" label="Function Name"
+                                        :rules="[globalRequire].flat()" required />
+                                </VCol>
+                            </VRow>
+                            <VRow>
 
 
-                                <!--  <VSelect v-model="cat.selected_staff_ids" :items="cat.available_staff || []"
+                                <VCol cols="12" md="12">
+                                    <VTextarea v-model="func.venue" label="Venue" />
+                                </VCol>
+                            </VRow>
+
+                            <!-- Categories per Function -->
+                            <div class="ml-2 mt-4">
+                                <h4 class="font-medium mb-2">Categories</h4>
+
+                                <div v-for="(cat, catIndex) in func.categories" :key="cat.id || `new-${catIndex}`"
+                                    class="d-flex flex-wrap align-center gap-3 mb-3">
+                                    <VSelect v-model="cat.category_management_id" :items="data_fetch_categories"
+                                        item-title="category_role" item-value="id" label="Category"
+                                        class="flex-grow-1 min-w-200" :rules="[globalRequire].flat()"
+                                        @update:modelValue="onCategoryChange($event, funcIndex, catIndex, func.id)" />
+
+                                    <VTextField v-model="cat.category_quantity" type="number" label="Quantity"
+                                        class="flex-shrink-0" style="width: 120px;" :rules="[globalRequire].flat()"
+                                        min="1" @input="limitStaffSelection(funcIndex, catIndex)" />
+
+                                    <VSelect v-model="cat.selected_staff_ids" :items="cat.available_staff || []"
+                                        item-title="name" item-value="id" label="Select Staff" class="flex-grow-1"
+                                        multiple chips :rules="[globalRequire].flat()"
+                                        :menu-props="{ maxHeight: '300px' }"
+                                        @update:model-value="() => limitStaffSelection(funcIndex, catIndex)" />
+
+
+                                    <!--  <VSelect v-model="cat.selected_staff_ids" :items="cat.available_staff || []"
                                     item-title="name" item-value="id" label="Select Staff" class="flex-grow-1" multiple
                                     chips :rules="[globalRequire].flat()" required
                                     :menu-props="{ maxHeight: '300px' }" /> -->
 
-                                <VBtn icon color="error" variant="text" @click="removeCategory(funcIndex, catIndex)"
-                                    class="flex-shrink-0">
-                                    <VIcon>mdi-delete</VIcon>
+                                    <VBtn icon color="error" variant="text" @click="removeCategory(funcIndex, catIndex)"
+                                        class="flex-shrink-0">
+                                        <VIcon>mdi-delete</VIcon>
+                                    </VBtn>
+                                </div>
+
+                                <VBtn size="small" color="primary" variant="tonal" @click="addCategory(funcIndex)">
+                                    + Add Category
                                 </VBtn>
                             </div>
 
-                            <VBtn size="small" color="primary" variant="tonal" @click="addCategory(funcIndex)">
-                                + Add Category
-                            </VBtn>
+                            <!-- Remove Function Button -->
+                            <div class="text-right mt-4">
+                                <VBtn color="error" variant="outlined" @click="removeFunction(funcIndex)">
+                                    Remove Function
+                                </VBtn>
+                            </div>
                         </div>
 
-                        <!-- Remove Function Button -->
-                        <div class="text-right mt-4">
-                            <VBtn color="error" variant="outlined" @click="removeFunction(funcIndex)">
-                                Remove Function
-                            </VBtn>
-                        </div>
-                    </div>
-
-                    <!-- Add Function Button -->
-                    <VBtn color="success" variant="flat" @click="addFunction">
-                        + Add Function
-                    </VBtn>
-                </VCol>
-            </VRow>
-        </VCardText>
-
-        <VCardText class="d-flex justify-end gap-4">
-            <VBtn @click="updateData"> Update </VBtn>
-        </VCardText>
-    </VForm>
-    <!-- global loader modal -->
-    <VDialog v-model="loader" width="300">
-        <VCard color="primary" width="300">
-            <VCardText class="pt-3">
-                loading.........
-                <VProgressLinear indeterminate class="mb-0" />
+                        <!-- Add Function Button -->
+                        <VBtn color="success" variant="flat" @click="addFunction">
+                            + Add Function
+                        </VBtn>
+                    </VCol>
+                </VRow>
             </VCardText>
-        </VCard>
-    </VDialog>
+
+            <VCardText class="d-flex justify-end gap-4">
+                <VBtn @click="updateData"> Update </VBtn>
+            </VCardText>
+        </VForm>
+        <!-- global loader modal -->
+        <VDialog v-model="loader" width="300">
+            <VCard color="primary" width="300">
+                <VCardText class="pt-3">
+                    loading.........
+                    <VProgressLinear indeterminate class="mb-0" />
+                </VCardText>
+            </VCard>
+        </VDialog>
+    </div>
 </template>
 
 <script>

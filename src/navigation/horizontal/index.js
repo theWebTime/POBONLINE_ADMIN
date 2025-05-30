@@ -172,9 +172,9 @@ if (auth.role == 2) {
   route.push(manageYourStory);
 
   const manageOrganizeStaff = {
-    title: "Organize Staff",
+    title: "Organized Team",
     to: { name: "organizeStaff" },
-    icon: { icon: "tabler-align-box-center-stretch" },
+    icon: { icon: "tabler-sitemap" },
   };
   route.push(manageOrganizeStaff);
 

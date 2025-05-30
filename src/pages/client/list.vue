@@ -231,28 +231,28 @@ export default {
 
         downloadPDF(item) {
             this.isLoading = true;
-            
+
             // Change the endpoint to download directly
-            http.get(`/clients/download-invoice/${item.id}`, { 
-                responseType: 'blob' 
+            http.get(`/clients/download-invoice/${item.id}`, {
+                responseType: 'blob'
             })
-            .then(response => {
-                const blob = new Blob([response.data], { type: 'application/pdf' });
-                const link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob);
-                link.download = `invoice_${item.id}_${new Date().getTime()}.pdf`; // Add timestamp for uniqueness
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                window.URL.revokeObjectURL(link.href);
-            })
-            .catch(error => {
-                console.error('Error downloading invoice:', error);
-                this.$toast.error('Failed to download invoice');
-            })
-            .finally(() => {
-                this.isLoading = false;
-            });
+                .then(response => {
+                    const blob = new Blob([response.data], { type: 'application/pdf' });
+                    const link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = `invoice_${item.id}_${new Date().getTime()}.pdf`; // Add timestamp for uniqueness
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(link.href);
+                })
+                .catch(error => {
+                    console.error('Error downloading invoice:', error);
+                    this.$toast.error('Failed to download invoice');
+                })
+                .finally(() => {
+                    this.isLoading = false;
+                });
         },
 
         /* downloadPDF(item) {
