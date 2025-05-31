@@ -2,7 +2,7 @@
   <div>
     <GlobalBreadCrumbsVue></GlobalBreadCrumbsVue>
 
-    <VCard title="Update Staff Details">
+    <VCard title="Update Team Member Details">
       <!--  <VAlert v-model="isAlertVisible" closable close-label="Close Alert" color="error">
         <ul v-for="(value, key) in errors" :key="key">
           <li v-for="(value1, key1) in value" :key="key1">-> {{ value1 }}</li>

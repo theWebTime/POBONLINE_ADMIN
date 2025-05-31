@@ -1,7 +1,7 @@
 <template>
   <div>
     <GlobalBreadCrumbsVue></GlobalBreadCrumbsVue>
-    <VCard title="Add Staff Details">
+    <VCard title="Add Team Member Details">
       <VAlert v-if="isAlertVisible" v-model="isAlertVisible" closable close-label="Close Alert" color="error"
         class="mb-4">
         <div class="d-flex flex-wrap" style="gap: 8px;">
