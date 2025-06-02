@@ -22,7 +22,7 @@
             </VCol>
             <VCol cols="12" md="6">
               <VResponsive :aspect-ratio="1">
-                <VImg :src="`${baseUrl}/images/yourStory/${fetch_photo}`" class="rounded-square" cover />
+                <VImg :src="`${baseUrl}/quotation_hub/images/yourStory/${fetch_photo}`" class="rounded-square" cover />
               </VResponsive>
               <VBtn class="mt-2" color="error" @click="openDeletePopup('image')">Delete Image 1</VBtn>
             </VCol>
@@ -32,7 +32,7 @@
             </VCol>
             <VCol cols="12" md="6">
               <VResponsive :aspect-ratio="1">
-                <VImg :src="`${baseUrl}/images/yourStory/${fetch_photo2}`" class="rounded-square" cover />
+                <VImg :src="`${baseUrl}/quotation_hub/images/yourStory/${fetch_photo2}`" class="rounded-square" cover />
               </VResponsive>
               <VBtn class="mt-2" color="error" @click="openDeletePopup('image2')">Delete Image 2</VBtn>
             </VCol>

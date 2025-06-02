@@ -21,7 +21,7 @@
             </VCol>
             <VCol cols="12" md="3">
               <VAvatar size="48">
-                <VImg :src="`${baseUrl}/images/user/${fetch_photo}`" class="rounded-square" cover />
+                <VImg :src="`${baseUrl}/quotation_hub/images/user/${fetch_photo}`" class="rounded-square" cover />
               </VAvatar>
             </VCol>
             <VCol cols="12" md="3">

@@ -49,7 +49,8 @@
             <VCol cols="12" md="4">
               <label>Logo</label><br /><br />
               <VAvatar size="100">
-                <VImg :src="`${baseUrl}/images/user/${fetch_photo}`" class="rounded-square" cover disabled />
+                <VImg :src="`${baseUrl}/quotation_hub/images/user/${fetch_photo}`" class="rounded-square" cover
+                  disabled />
               </VAvatar>
             </VCol>
             <VCol cols="12" md="4">
