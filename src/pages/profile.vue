@@ -18,7 +18,7 @@
               <AppTextField :rules="[globalRequire, nameMin].flat()" v-model="insertData.name" label="Name" />
             </VCol>
             <VCol cols="6">
-              <AppTextField type="password" :rules="[passwordMin].flat()" v-model="insertData.password"
+              <AppTextField type="password" v-model="insertData.password"
                 label="Password (make it empty if you don't want to update)" />
             </VCol>
             <VCol cols="12" md="6">
@@ -33,17 +33,27 @@
             <VCol cols="12" md="6">
               <AppTextField v-model="insertData.website_link" label="Website Link" />
             </VCol>
-            <VCol cols="12" md="6">
-              <AppTextField :rules="[globalRequire, email].flat()" v-model="insertData.email" label="Email" disabled />
-            </VCol>
-            <VCol cols="12" md="6">
+            <VCol cols="12" md="4">
               <AppTextField v-model="insertData.studio_name" label="Studio Name" disabled />
             </VCol>
-            <VCol cols="12" md="6">
+            <VCol cols="12" md="4">
+              <AppTextField v-model="insertData.phone_number" label="Phone Number" disabled />
+            </VCol>
+            <VCol cols="12" md="4">
+              <AppTextField v-model="insertData.email" label="Email" disabled />
+            </VCol>
+            <VCol cols="12" md="4">
+              <label>Logo Image</label>
+              <v-file-input accept="image/*" v-model="image" ref="file"></v-file-input>
+            </VCol>
+            <VCol cols="12" md="4">
               <label>Logo</label><br /><br />
               <VAvatar size="100">
                 <VImg :src="`${baseUrl}/images/user/${fetch_photo}`" class="rounded-square" cover disabled />
               </VAvatar>
+            </VCol>
+            <VCol cols="12" md="4">
+              <v-textarea v-model="insertData.address" :rules="[globalRequire].flat()" label="Street Address" />
             </VCol>
           </VRow>
         </VCardText>
@@ -90,9 +100,11 @@ export default {
           return "Must be at least 6 characters.";
         },
       ],
+      image: "",
       fetch_photo: "",
       insertData: {
         name: "",
+        address: "",
         password: "",
         instagram_link: "",
         facebook_link: "",
@@ -122,6 +134,8 @@ export default {
           if (res.data.success) {
             const resData = res.data.data;
             this.insertData.name = resData.name;
+            this.insertData.phone_number = resData.phone_number;
+            this.insertData.address = resData.address;
             this.insertData.email = resData.email;
             this.insertData.studio_name = resData.studio_name;
             this.insertData.instagram_link = resData.instagram_link;
@@ -139,25 +153,38 @@ export default {
         });
     },
     async updateData() {
-      this.loader = true;
-      http
-        .post("profile_update", this.insertData)
-        .then((res) => {
-          if (res.data.success) {
-            this.resetValues();
-            this.fetchData();
-            toast.success(res.data.message);
-            this.isAlertVisible = false;
-          } else {
-            toast.error(res.data.message);
-            this.errors = res.data.data;
-            this.isAlertVisible = true;
-          }
-          this.loader = false;
-        })
-        .catch((e) => {
-          this.loader = false;
-        });
+      const checkValidation = await this.$refs.formSubmit.validate();
+      if (checkValidation.valid) {
+        const formData = new FormData();
+        if (this.image) {
+          const imageData = this.$refs.file.files[0];
+          formData.append("image", imageData);
+        } else {
+          formData.append("image", "");
+        }
+        for (let x in this.insertData) {
+          formData.append(x, this.insertData[x]);
+        }
+        this.loader = true;
+        http
+          .post("profile_update", formData)
+          .then((res) => {
+            if (res.data.success) {
+              this.resetValues();
+              this.fetchData();
+              toast.success(res.data.message);
+              this.isAlertVisible = false;
+            } else {
+              toast.error(res.data.message);
+              this.errors = res.data.data;
+              this.isAlertVisible = true;
+            }
+            this.loader = false;
+          })
+          .catch((e) => {
+            this.loader = false;
+          });
+      }
     },
   },
 };

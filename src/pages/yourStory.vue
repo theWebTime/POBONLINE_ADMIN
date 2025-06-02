@@ -18,7 +18,7 @@
           <br />
           <VRow>
             <VCol cols="12" md="6">
-              <v-file-input accept="image/*" v-model="image" label="Your Story Image 1" ref="file"></v-file-input>
+              <v-file-input accept="image/*" v-model="image" label="Image 1 (A4 Size Image)" ref="file"></v-file-input>
             </VCol>
             <VCol cols="12" md="6">
               <VResponsive :aspect-ratio="1">
@@ -27,7 +27,8 @@
               <VBtn class="mt-2" color="error" @click="openDeletePopup('image')">Delete Image 1</VBtn>
             </VCol>
             <VCol cols="12" md="6">
-              <v-file-input accept="image/*" v-model="image2" label="Your Story Image 2" ref="file1"></v-file-input>
+              <v-file-input accept="image/*" v-model="image2" label="Image 2 (A4 Size Image)"
+                ref="file1"></v-file-input>
             </VCol>
             <VCol cols="12" md="6">
               <VResponsive :aspect-ratio="1">

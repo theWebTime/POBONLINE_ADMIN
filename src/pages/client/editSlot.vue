@@ -1,90 +1,92 @@
 <template>
-    <VCard title="Manage Slot Details">
-        <VAlert v-if="isAlertVisible" v-model="isAlertVisible" closable close-label="Close Alert" color="error"
-            class="mb-4">
-            <div class="d-flex flex-wrap" style="gap: 8px;">
-                <span v-for="(msg, index) in errors" :key="index" class="error-chip">
-                    • {{ msg }}
-                </span>
-            </div>
-        </VAlert>
-        <VForm ref="formSubmit">
-            <VCardText>
-                <VRow>
-                    <VCol cols="12" md="3">
-                        <AppTextField v-model="insertData.grand_total" label="Total" disabled />
-                    </VCol>
-                    <VCol cols="12" md="2">
-                        <AppTextField v-model="insertData.discount_percentage" label="Discount Percentage" disabled
-                            suffix="%" />
-                    </VCol>
-                    <VCol cols="12" md="2">
-                        <AppTextField v-model="insertData.discount_amount" label="Discount Amount" disabled />
-                    </VCol>
-                    <VCol cols="12" md="2">
-                        <AppTextField v-model="insertData.final_total" label="Final Amount" disabled />
-                    </VCol>
+    <div>
+        <VCard title="Manage Slot Details">
+            <VAlert v-if="isAlertVisible" v-model="isAlertVisible" closable close-label="Close Alert" color="error"
+                class="mb-4">
+                <div class="d-flex flex-wrap" style="gap: 8px;">
+                    <span v-for="(msg, index) in errors" :key="index" class="error-chip">
+                        • {{ msg }}
+                    </span>
+                </div>
+            </VAlert>
+            <VForm ref="formSubmit">
+                <VCardText>
+                    <VRow>
+                        <VCol cols="12" md="3">
+                            <AppTextField v-model="insertData.grand_total" label="Total" disabled />
+                        </VCol>
+                        <VCol cols="12" md="2">
+                            <AppTextField v-model="insertData.discount_percentage" label="Discount Percentage" disabled
+                                suffix="%" />
+                        </VCol>
+                        <VCol cols="12" md="2">
+                            <AppTextField v-model="insertData.discount_amount" label="Discount Amount" disabled />
+                        </VCol>
+                        <VCol cols="12" md="2">
+                            <AppTextField v-model="insertData.final_total" label="Final Amount" disabled />
+                        </VCol>
 
-                </VRow><br><br>
-                <v-row v-for="(row, index) in rows" :key="index">
-                    <v-col cols="12" md="2">
-                        <v-text-field v-model="row.slot_name" label="Slot Name" dense />
-                    </v-col>
+                    </VRow><br><br>
+                    <v-row v-for="(row, index) in rows" :key="index">
+                        <v-col cols="12" md="2">
+                            <v-text-field v-model="row.slot_name" label="Slot Name" dense />
+                        </v-col>
 
-                    <v-col cols="12" md="2">
-                        <v-text-field v-model="row.slot_percentage" label="Slot Amount" dense />
-                    </v-col>
+                        <v-col cols="12" md="2">
+                            <v-text-field v-model="row.slot_percentage" label="Slot Amount" dense />
+                        </v-col>
 
-                    <v-col cols="12" md="2">
-                        <VRadioGroup v-model="row.payment" inline label="Payment Received">
-                            <VRadio label="Yes" :value="1" density="compact" />
-                            <VRadio label="No" :value="0" density="compact" />
-                        </VRadioGroup>
-                    </v-col>
+                        <v-col cols="12" md="2">
+                            <VRadioGroup v-model="row.payment" inline label="Payment Received">
+                                <VRadio label="Yes" :value="1" density="compact" />
+                                <VRadio label="No" :value="0" density="compact" />
+                            </VRadioGroup>
+                        </v-col>
 
-                    <v-col cols="12" md="2">
-                        <v-text-field v-model="row.date" type="date" label="Date" />
-                    </v-col>
+                        <v-col cols="12" md="2">
+                            <v-text-field v-model="row.date" type="date" label="Date" />
+                        </v-col>
 
-                    <v-col cols="12" md="2">
-                        <v-btn @click="removeSlot(index)" color="red" icon>
-                            <v-icon>mdi-delete</v-icon>
-                        </v-btn>
-                    </v-col>
+                        <v-col cols="12" md="2">
+                            <v-btn @click="removeSlot(index)" color="red" icon>
+                                <v-icon>mdi-delete</v-icon>
+                            </v-btn>
+                        </v-col>
 
-                    <v-col cols="12" md="2">
-                        <IconBtn>
-                            <VIcon class="text-primary" :icon="'tabler-download'" @click="downloadPDF" />
-                            <VTooltip activator="parent" location="start">
-                                Download Receipt
-                            </VTooltip>
-                        </IconBtn>
-                        |
-                        <IconBtn>
-                            <VIcon class="text-primary" :icon="'tabler-brand-whatsapp'"
-                                @click="sendReceiptToWhatsapp(row.client_id)" />
-                            <VTooltip activator="parent" location="start">
-                                Send Receipt via WhatsApp
-                            </VTooltip>
-                        </IconBtn>
-                    </v-col>
-                </v-row>
-                <v-btn @click="addSlot">Add Row</v-btn>
-            </VCardText>
-            <VCardText class="d-flex justify-end flex-wrap gap-3">
-                <VBtn @click="updateData"> Update </VBtn>
-            </VCardText>
-        </VForm>
-    </VCard>
-    <!-- global loader modal -->
-    <VDialog v-model="loader" width="300">
-        <VCard color="primary" width="300">
-            <VCardText class="pt-3">
-                loading.........
-                <VProgressLinear indeterminate class="mb-0" />
-            </VCardText>
+                        <v-col cols="12" md="2">
+                            <IconBtn>
+                                <VIcon class="text-primary" :icon="'tabler-download'" @click="downloadPDF" />
+                                <VTooltip activator="parent" location="start">
+                                    Download Receipt
+                                </VTooltip>
+                            </IconBtn>
+                            |
+                            <IconBtn>
+                                <VIcon class="text-primary" :icon="'tabler-brand-whatsapp'"
+                                    @click="sendReceiptToWhatsapp(row.client_id)" />
+                                <VTooltip activator="parent" location="start">
+                                    Send Receipt via WhatsApp
+                                </VTooltip>
+                            </IconBtn>
+                        </v-col>
+                    </v-row>
+                    <v-btn @click="addSlot">Add Row</v-btn>
+                </VCardText>
+                <VCardText class="d-flex justify-end flex-wrap gap-3">
+                    <VBtn @click="updateData"> Update </VBtn>
+                </VCardText>
+            </VForm>
         </VCard>
-    </VDialog>
+        <!-- global loader modal -->
+        <VDialog v-model="loader" width="300">
+            <VCard color="primary" width="300">
+                <VCardText class="pt-3">
+                    loading.........
+                    <VProgressLinear indeterminate class="mb-0" />
+                </VCardText>
+            </VCard>
+        </VDialog>
+    </div>
 </template>
 
 <script>

@@ -82,7 +82,7 @@ export default {
   methods: {
     downloadQRCode() {
       const link = document.createElement('a')
-      link.href = '/images/GooglePay_QR.png' // Replace with actual path
+      link.href = '/images/payment_scanner.png' // Replace with actual path
       link.download = 'UPI_QR_Code.png'
       link.click()
     },
