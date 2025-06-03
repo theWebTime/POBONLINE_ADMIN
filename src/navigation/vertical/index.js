@@ -78,23 +78,23 @@ if (auth.role == 2) {
 
   route.push(manageCategory);
 
-  const manageStaff = {
+  const manageTeam = {
     title: "Team",
     to: null,
     icon: { icon: "tabler-users-group" },
     children: [
       {
         title: "Add",
-        to: { name: "staff-add" },
+        to: { name: "team-add" },
       },
       {
         title: "List",
-        to: { name: "staff-list" },
+        to: { name: "team-list" },
       },
     ],
   };
 
-  route.push(manageStaff);
+  route.push(manageTeam);
 
   const manageParticularFunction = {
     title: "Particular Function",
@@ -175,12 +175,12 @@ if (auth.role == 2) {
   };
   route.push(manageYourStory);
 
-  const manageOrganizeStaff = {
+  const manageOrganizeTeam = {
     title: "Organized Team",
-    to: { name: "organizeStaff" },
+    to: { name: "organizeTeam" },
     icon: { icon: "tabler-sitemap" },
   };
-  route.push(manageOrganizeStaff);
+  route.push(manageOrganizeTeam);
 
     const managePrivacyPolicy = {
     title: "Privacy Policy",

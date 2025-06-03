@@ -21,8 +21,8 @@
           </div>
         </div>
         <div class="app-user-search-filter d-flex align-center flex-wrap gap-4">
-          <router-link to="/staff/add">
-            <VBtn prepend-icon="tabler-plus"> Add Staff </VBtn>
+          <router-link to="/team/add">
+            <VBtn prepend-icon="tabler-plus"> Add Team </VBtn>
           </router-link>
         </div>
       </VCardText>
@@ -50,7 +50,7 @@
                 {{ item.category_role }}
               </td>
               <td class="text-center">
-                <router-link :to="'/staff/editStaff/' + item.id">
+                <router-link :to="'/team/editTeam/' + item.id">
                   <IconBtn>
                     <VIcon :icon="'tabler-edit-circle'" />
 
@@ -77,8 +77,8 @@
           {{ paginationMeta(options, data.total) }}
         </p>
         <VPagination v-model="options.page" :length="Math.ceil(this.data.total / options.itemsPerPage)" :total-visible="$vuetify.display.xs
-            ? 1
-            : Math.ceil(this.data.total / options.itemsPerPage)
+          ? 1
+          : Math.ceil(this.data.total / options.itemsPerPage)
           " @click="changePage()">
         </VPagination>
       </div>
