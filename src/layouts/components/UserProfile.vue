@@ -1,5 +1,5 @@
 <script setup>
-import avatar1 from "@images/avatars/avatar-1.png";
+import qh12 from "@images/avatars/qh12.png";
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import avatar1 from "@images/avatars/avatar-1.png";
         <VImg :src="fetch_photo" />
       </VAvatar> -->
       <VAvatar size="48">
-        <VImg :src="avatar1" />
+        <VImg :src="qh12" />
       </VAvatar>
       <!-- SECTION Menu -->
       <VMenu activator="parent" width="230" location="bottom end" offset="14px">
@@ -23,7 +23,7 @@ import avatar1 from "@images/avatars/avatar-1.png";
                     <VImg :src="fetch_photo" />
                   </VAvatar> -->
                   <VAvatar color="primary" variant="tonal">
-                    <VImg :src="avatar1" />
+                    <VImg :src="qh12" />
                   </VAvatar>
                 </VBadge>
               </VListItemAction>
