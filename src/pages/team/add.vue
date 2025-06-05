@@ -121,7 +121,7 @@ export default {
           .then((res) => {
             if (res.data.success) {
               this.$router.push({
-                path: "/staff/list/",
+                path: "/team/list/",
               });
               this.$toast.success(res.data.message);
               this.isAlertVisible = false;
