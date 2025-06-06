@@ -189,6 +189,13 @@ if (auth.role == 2) {
   };
   route.push(managePrivacyPolicy);
 
+    const manageBokedClient = {
+    title: "Booked Client",
+    to: { name: "bookedClient" },
+    icon: { icon: "tabler-bookmark" },
+  };
+  route.push(manageBokedClient);
+
 } 
 
 /* const manageUserContactUs = {

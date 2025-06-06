@@ -1,53 +1,52 @@
 <template>
-  <v-footer class="bg-grey-lighten-4 text-body-1 py-4 px-6" elevation="2" app>
-    <v-container>
-      <v-row align="center" justify="space-between" class="flex-wrap">
-        <!-- 👉 Left side -->
-        <v-col cols="12" md="6" class="d-flex align-center justify-center justify-md-start text-center text-md-start">
-          <span>
-            &copy; {{ new Date().getFullYear() }}
-            <strong>Quotation Hub</strong>
-            &nbsp;&nbsp;
-            <a href="tel:+917862813861" class="text-primary text-decoration-none font-weight-medium">
-              Developed By The Web Time IT Solution
-            </a>
-          </span>
-        </v-col>
-
-        <!-- 👉 Right side (optional links) -->
-        <!--
-        <v-col
-          cols="12"
-          md="6"
-          class="d-flex justify-center justify-md-end text-center text-md-end"
-        >
-          <v-btn
-            variant="text"
-            class="text-primary"
-            href="https://themeforest.net/licenses/standard"
-            target="_blank"
-          >
-            License
-          </v-btn>
-          <v-btn
-            variant="text"
-            class="text-primary"
-            href="https://1.envato.market/pixinvent_portfolio"
-            target="_blank"
-          >
-            More Themes
-          </v-btn>
-          <v-btn
-            variant="text"
-            class="text-primary"
-            href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/"
-            target="_blank"
-          >
-            Documentation
-          </v-btn>
-        </v-col>
-        -->
-      </v-row>
-    </v-container>
-  </v-footer>
+  <div class="footer-wrapper">
+    <span class="footer-content">
+      &copy; {{ new Date().getFullYear() }} Quotation Hub&nbsp;&nbsp;
+      <a
+        href="tel:+917862813861"
+        class="footer-link"
+      >
+        Developed By The Web Time IT Solution
+      </a>
+    </span>
+  </div>
 </template>
+
+<style scoped>
+.footer-wrapper {
+  width: 100%;
+  padding: 16px 0;
+  background: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Responsive fixed footer, remove if not needed */
+  /* position: fixed; bottom: 0; left: 0; */
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  gap: 8px;
+  text-align: center;
+}
+
+.footer-link {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.95rem;
+  }
+}
+</style>

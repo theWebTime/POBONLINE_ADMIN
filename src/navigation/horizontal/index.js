@@ -184,6 +184,13 @@ if (auth.role == 2) {
     icon: { icon: "tabler-file-description" },
   };
   route.push(managePrivacyPolicy);
+
+  const manageBokedClient = {
+    title: "Booked Client",
+    to: { name: "bookedClient" },
+    icon: { icon: "tabler-bookmark" },
+  };
+  route.push(manageBokedClient);
 } 
 
   /* var manageConference = {
