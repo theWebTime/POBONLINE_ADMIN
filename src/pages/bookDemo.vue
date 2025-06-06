@@ -7,7 +7,7 @@
                 <img src="@/assets/images/Quotation_Hub.png" alt="Logo" height="200" width="200" />
             </div>
             <VCardTitle class="text-h5 font-weight-bold text-primary mb-6 text-center">
-                Book a Demo
+                For More Inquiry
             </VCardTitle>
 
             <!-- Alert -->
