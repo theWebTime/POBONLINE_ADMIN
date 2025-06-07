@@ -51,16 +51,15 @@
                   <span v-else>Login</span>
                 </VBtn>
               </VCol>
-
+              <VCol cols="12">
+                <RouterLink to="/register" class="text-decoration-none">
+                  <VBtn block variant="outlined" size="large">Register</VBtn>
+                </RouterLink>
+              </VCol>
               <!-- Book a Demo Button -->
               <VCol cols="12">
                 <RouterLink to="/bookDemo" class="text-decoration-none">
                   <VBtn block variant="outlined" size="large">For More Inquiry</VBtn>
-                </RouterLink>
-              </VCol>
-              <VCol cols="12">
-                <RouterLink to="/register" class="text-decoration-none">
-                  <VBtn block variant="outlined" size="large">Register</VBtn>
                 </RouterLink>
               </VCol>
             </VRow>

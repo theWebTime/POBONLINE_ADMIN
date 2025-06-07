@@ -41,7 +41,7 @@
             <VCol cols="12" md="3">
               <AppTextField v-model="insertData.email" :rules="[email, globalRequire].flat()" label="Email" />
             </VCol>
-            <VCol cols="3">
+            <VCol cols="12" md="3">
               <AppTextField type="password" v-model="insertData.password"
                 label="Password (make it empty if you don't want to update)" />
             </VCol>
